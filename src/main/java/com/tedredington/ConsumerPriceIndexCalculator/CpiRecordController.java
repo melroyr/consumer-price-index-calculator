@@ -9,9 +9,9 @@ import java.util.Optional;
 @RestController
 public class CpiRecordController {
 
-    private final CPIRecordService recordService;
+    private final CpiRecordService recordService;
 
-    public CpiRecordController(CPIRecordService recordService) {
+    public CpiRecordController(CpiRecordService recordService) {
         this.recordService = recordService;
     }
 

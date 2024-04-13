@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class CPIRecordService {
+public class CpiRecordService {
 
-    private CpiRecordRepository recordRepository;
+    private final CpiRecordRepository recordRepository;
 
-    public CPIRecordService(CpiRecordRepository recordRepository) {
+    public CpiRecordService(CpiRecordRepository recordRepository) {
         this.recordRepository = recordRepository;
     }
 

@@ -31,7 +31,8 @@ public class CsvService {
         List<CpiRecord> records = new ArrayList<>();
 
         Reader reader = new FileReader(resourceFile.getFile());
-        CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
+        CSVFormat csvFormat = CSVFormat.DEFAULT.builder().setHeader().build();
+        CSVParser csvParser = new CSVParser(reader, csvFormat);
 
         for (CSVRecord csvRecord : csvParser) {
             LocalDate date = LocalDate.parse(csvRecord.get("DATE"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
