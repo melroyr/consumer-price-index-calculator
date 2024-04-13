@@ -1,28 +1,35 @@
 package com.tedredington.ConsumerPriceIndexCalculator;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
-public class CPIRecord {
+public class CpiRecord {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDateTime date;
+    private LocalDate date;
     private Double indexValue;
 
-    public CPIRecord(LocalDateTime date, Double indexValue) {
+    public CpiRecord(LocalDate date, Double indexValue) {
         this.date = date;
         this.indexValue = indexValue;
     }
+
+    public CpiRecord() {
+    }
+
 
     public Integer getId() {
         return id;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

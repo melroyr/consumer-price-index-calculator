@@ -1,4 +1,4 @@
 package com.tedredington.ConsumerPriceIndexCalculator;
 
-public record CPIRecordResponse(int id, double amount) {
+public record CpiRecordResponse(int id, double amount) {
 }
