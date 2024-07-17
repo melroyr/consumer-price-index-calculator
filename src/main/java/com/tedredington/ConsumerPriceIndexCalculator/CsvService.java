@@ -37,7 +37,7 @@ public class CsvService {
         for (CSVRecord csvRecord : csvParser) {
             LocalDate date = LocalDate.parse(csvRecord.get("DATE"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             Double indexValue = Double.parseDouble(csvRecord.get("CPIAUCSL"));
-            CpiRecord record = new CpiRecord(date, indexValue);
+            CpiRecord record = new CpiRecord(date, indexValue); 
             logger.info("Parsed new record: " + record);
             records.add(record);
         }

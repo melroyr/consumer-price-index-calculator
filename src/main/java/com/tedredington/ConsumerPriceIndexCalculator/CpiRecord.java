@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class CpiRecord {
@@ -33,7 +34,7 @@ public class CpiRecord {
         return date;
     }
 
-    public Double getIndexValue() {
+	public Double getIndexValue() {
         return indexValue;
     }
 

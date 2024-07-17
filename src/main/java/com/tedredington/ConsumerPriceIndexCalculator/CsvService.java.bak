@@ -1,0 +1,65 @@
+package com.tedredington.ConsumerPriceIndexCalculator;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CsvService {
+
+    private final Logger logger = LoggerFactory.getLogger(CsvService.class);
+
+    @Value("classpath:data/CPIUSBLSOuter.csv")
+    private Resource resourceFile;
+
+    public List<CpiRecord> readCsv() throws Exception {
+
+        List<CpiRecord> records = new ArrayList<>();
+
+        Reader reader = new FileReader(resourceFile.getFile());
+        CSVFormat csvFormat = CSVFormat.DEFAULT.builder().setHeader().build();
+        CSVParser csvParser = new CSVParser(reader, csvFormat);
+        
+//        String filename;
+//        FileWriter out;
+//        CSVPrinter printer = null;
+
+        //Integer prevYear = 3000;
+        for (CSVRecord csvRecord : csvParser) {
+            String seriesId = csvRecord.get("series_id");
+            Integer year = Integer.parseInt(csvRecord.get("year"));
+            String period = csvRecord.get("period");
+            Double indexValue = Double.parseDouble(csvRecord.get("value"));
+            CpiRecord record = new CpiRecord(seriesId, year, period, indexValue);
+            logger.info("Parsed new record: " + record);
+            System.out.println("Record: " + record);
+            records.add(record);
+            
+//            if(year < prevYear) {
+//            	filename = seriesId + year + period + ".csv";
+//            	out = new FileWriter(filename, false);
+//                printer = csvFormat.print(out);
+//
+//            }
+            
+//            printer.printRecord(seriesId, year, period, indexValue);
+//            printer.flush();
+            
+            break;
+        }
+        return records;
+    }
+
+}
