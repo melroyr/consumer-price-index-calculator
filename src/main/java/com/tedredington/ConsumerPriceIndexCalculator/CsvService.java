@@ -23,12 +23,12 @@ public class CsvService {
 
     private final Logger logger = LoggerFactory.getLogger(CsvService.class);
 
-    @Value("classpath:data/CPIAUCSL.csv")
+    @Value("classpath:data/GDPDEF.csv")
     private Resource resourceFile;
 
-    public List<CpiRecord> readCsv() throws Exception {
+    public List<GDPDefRecord> readCsv() throws Exception {
 
-        List<CpiRecord> records = new ArrayList<>();
+        List<GDPDefRecord> records = new ArrayList<>();
 
         Reader reader = new FileReader(resourceFile.getFile());
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder().setHeader().build();
@@ -36,8 +36,8 @@ public class CsvService {
 
         for (CSVRecord csvRecord : csvParser) {
             LocalDate date = LocalDate.parse(csvRecord.get("DATE"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            Double indexValue = Double.parseDouble(csvRecord.get("CPIAUCSL"));
-            CpiRecord record = new CpiRecord(date, indexValue); 
+            Double indexValue = Double.parseDouble(csvRecord.get("GDPDEF"));
+            GDPDefRecord record = new GDPDefRecord(date, indexValue); 
             logger.info("Parsed new record: " + record);
             records.add(record);
         }

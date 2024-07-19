@@ -1,38 +1,37 @@
 package com.tedredington.ConsumerPriceIndexCalculator;
 
-import org.springframework.data.util.Streamable;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.util.Streamable;
+import org.springframework.stereotype.Service;
+
 @Service
-public class CpiRecordService {
+public class PceRecordService {
 
-    private final CpiRecordRepository recordRepository;
+    private final PceRecordRepository recordRepository;
 
-    public CpiRecordService(CpiRecordRepository recordRepository) {
+    public PceRecordService(PceRecordRepository recordRepository) {
         this.recordRepository = recordRepository;
     }
 
-    public Optional<CpiRecord> findById(Integer id) {
+    public Optional<PceRecord> findById(Integer id) {
         return recordRepository.findById(id);
     }
     
-    public List<CpiRecord> findByDate(LocalDate date) {
+    public List<PceRecord> findByDate(LocalDate date) {
     	return recordRepository.findByDate(date);
     }
     
-    public List<CpiRecord> findAll() {
-    	Iterable<CpiRecord> iterable = recordRepository.findAll();
-    	List<CpiRecord> records = Streamable.of(iterable).toList();
+    public List<PceRecord> findAll() {
+    	Iterable<PceRecord> iterable = recordRepository.findAll();
+    	List<PceRecord> records = Streamable.of(iterable).toList();
     	
     	Double value = 0.00;
     	Double currValue = 0.00;
     	int up=0, down=0;
-    	for(CpiRecord record: records) {
+    	for(PceRecord record: records) {
     		currValue = record.getIndexValue();
     		if (currValue > value) {
     			value = currValue;

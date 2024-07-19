@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CpiRecordRepository extends CrudRepository<CpiRecord, Integer> {
+public interface GDPDefRecordRepository extends CrudRepository<GDPDefRecord, Integer> {
 	
-	public List<CpiRecord> findByDate(LocalDate date);
+	public List<GDPDefRecord> findByDate(LocalDate date);
 }

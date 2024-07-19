@@ -11,15 +11,16 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class DataLoader implements ApplicationRunner {
+//public class DataLoader implements ApplicationRunner {
+public class DataLoader {
 
     private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
-    private final CpiRecordRepository recordRepository;
+    private final GDPDefRecordRepository recordRepository;
     private final CsvService csvService;
 
     @Autowired
-    public DataLoader(CpiRecordRepository recordRepository, CsvService csvService) {
+    public DataLoader(GDPDefRecordRepository recordRepository, CsvService csvService) {
         this.recordRepository = recordRepository;
         this.csvService = csvService;
     }
@@ -27,7 +28,7 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // Read CSV file and save records to database
-        List<CpiRecord> records = csvService.readCsv();
+        List<GDPDefRecord> records = csvService.readCsv();
         logger.info("Importing records and saving to H2 DB. Record Count: %d".formatted(records.stream().count()));
         recordRepository.saveAll(records);
     }
