@@ -27,7 +27,7 @@ public class CpiRecordController {
     @GetMapping("/cpirecord/date" )
     public List<CpiRecord> getCpiRecord() {
     	
-    	LocalDate date = LocalDate.parse("2023-05-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    	LocalDate date = LocalDate.parse("2023-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         List<CpiRecord> records = recordService.findByDate(date);
         System.out.println("CPI Date Count: " + records.size());
         return records;

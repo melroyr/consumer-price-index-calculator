@@ -23,21 +23,22 @@ public class CsvService {
 
     private final Logger logger = LoggerFactory.getLogger(CsvService.class);
 
-    @Value("classpath:data/GDPDEF.csv")
+    @Value("classpath:data/HstDebt.csv")
     private Resource resourceFile;
 
-    public List<GDPDefRecord> readCsv() throws Exception {
+    public List<DebtRecord> readCsv() throws Exception {
 
-        List<GDPDefRecord> records = new ArrayList<>();
+        List<DebtRecord> records = new ArrayList<>();
 
         Reader reader = new FileReader(resourceFile.getFile());
         CSVFormat csvFormat = CSVFormat.DEFAULT.builder().setHeader().build();
         CSVParser csvParser = new CSVParser(reader, csvFormat);
 
         for (CSVRecord csvRecord : csvParser) {
-            LocalDate date = LocalDate.parse(csvRecord.get("DATE"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            Double indexValue = Double.parseDouble(csvRecord.get("GDPDEF"));
-            GDPDefRecord record = new GDPDefRecord(date, indexValue); 
+            LocalDate date = LocalDate.parse(csvRecord.get("Date"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Double debtAmount = Double.parseDouble(csvRecord.get("Debt_Amount"));
+            Integer quarter =  Integer.parseInt(csvRecord.get("Quarter_Number"));
+            DebtRecord record = new DebtRecord(date, debtAmount, quarter); 
             logger.info("Parsed new record: " + record);
             records.add(record);
         }

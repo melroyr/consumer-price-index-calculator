@@ -16,19 +16,19 @@ public class DataLoader {
 
     private final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
-    private final GDPDefRecordRepository recordRepository;
+    private final DebtRecordRepository recordRepository;
     private final CsvService csvService;
 
     @Autowired
-    public DataLoader(GDPDefRecordRepository recordRepository, CsvService csvService) {
+    public DataLoader(DebtRecordRepository recordRepository, CsvService csvService) {
         this.recordRepository = recordRepository;
         this.csvService = csvService;
     }
 
-    @Override
+    //@Override
     public void run(ApplicationArguments args) throws Exception {
         // Read CSV file and save records to database
-        List<GDPDefRecord> records = csvService.readCsv();
+        List<DebtRecord> records = csvService.readCsv();
         logger.info("Importing records and saving to H2 DB. Record Count: %d".formatted(records.stream().count()));
         recordRepository.saveAll(records);
     }
